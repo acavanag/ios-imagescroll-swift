@@ -90,14 +90,20 @@ class ViewController: UIViewController, UIScrollViewDelegate {
   }
 
   @IBAction func onImageSizeToggleButtonTapped(sender: AnyObject) {
-    imageSizeToggleButton.selected = !imageSizeToggleButton.selected
-    imageSizeToggleButton.invalidateIntrinsicContentSize()
+//    imageSizeToggleButton.selected = !imageSizeToggleButton.selected
+//    imageSizeToggleButton.invalidateIntrinsicContentSize()
+//
+//    let fileName = imageSizeToggleButton.selected ?
+//      imageScrollSmallImageName : imageScrollLargeImageName
+//
+//    imageView.image = UIImage(named: fileName)
+//    updateZoom()
+    var visibleRect = scrollView.convertRect(scrollView.bounds, toView: imageView)
+    if let image = imageView.image, croppedImage = UIImage(CGImage: CGImageCreateWithImageInRect(image.CGImage, visibleRect), scale: 1.0, orientation: image.imageOrientation) {
+        imageView.image = croppedImage
+    }
 
-    let fileName = imageSizeToggleButton.selected ?
-      imageScrollSmallImageName : imageScrollLargeImageName
 
-    imageView.image = UIImage(named: fileName)
-    updateZoom()
   }
   
   // UIScrollViewDelegate
